@@ -24,7 +24,7 @@ public class MenuService {
 		String path = "";
 		
 		if (result > 0) path = "redirect:/";
-		else path = "redirect:/menu/create";
+		else path = "/menu/create";
 		
 		return path;
 	}

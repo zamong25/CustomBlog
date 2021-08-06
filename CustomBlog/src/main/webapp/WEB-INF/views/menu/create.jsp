@@ -5,47 +5,29 @@
 <head>
 
 <meta charset="UTF-8">
-<script src="/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-let sendStatus = false;
-
-$(function() {
+function formCheck(){
+	var menu_name = document.getElementById("menu_name").value;
 	
-	check();
+	if(menu_name == ""){
+		alert("Please write menu name");
+		return false;
+	}
 	
-	$("button").click(function() {
-		
-		if (sendStatus) alert("Created menu successfully");
-		else alert("Please rewrite menu name");
-		
-	});
+	return true;
 	
-});
-
-function check() {
-	
-	$("#name").keyup(function() {
-		let menu_name = $("#name").val();
-		
-		if (menu_name.length == 0) {
-			alert("Please write menu name");
-			sendStatus = false;
-		}
-		else sendStatus = true;
-	});
 }
-
 </script>
 
 </head>
 <body>
 
 	<h3>Create new menu</h3>
-	<form action="/menu/create" method="get">
+	<form action="/menu/create" method="POST" onsubmit="return formCheck();">
 		
 		<label> Name </label>
-		<input type="text" id="name" name="menu_name">
+		<input type="text" id="menu_name" name="menu_name">
 		<br>
 		
 		<input type="submit" id="button" value="Create">
