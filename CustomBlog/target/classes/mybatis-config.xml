@@ -4,10 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.custom.blog.vo.MenuVO" alias="menu" />
 		<typeAlias type="com.custom.blog.vo.BoardVO" alias="board" />
 		
 	</typeAliases>
 	<mappers>
-		<mapper resource="mapper/mapper.xml" />
+		<mapper resource="mapper/menuMapper.xml" />
 	</mappers>
 </configuration>

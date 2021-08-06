@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.custom.blog.dao.MenuMapper">
+
+<insert id="" parameterType="menu">
+INSERT INTO menu
+(
+	menu_id
+	, menu_name
+	, menu_order	
+)
+VALUES
+(
+	menu_seq.nextval
+	, #{menu_name}
+	, #{menu_order}
+)
+</insert>
+
+<select id="" resultType="menu">
+SELECT 
+	memu_name
+FROM
+	menu
+</select>
+
+<update id="" parameterType="menu">
+UPDATE menu
+SET
+	menu_name = #{menu_name}
+	, menu_order = #{menu_order}
+WEHRE
+	menu_id = #{menu_id}
+</update>
+
+
+<delete id="" parameterType="string">
+DELETE menu
+WHERE 
+	menu_id = #{menu_id}
+</delete>
+
+
+</mapper>
