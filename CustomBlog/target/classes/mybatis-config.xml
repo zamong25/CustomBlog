@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="" alias="" />
+		<typeAlias type="com.custom.blog.vo.BoardVO" alias="board" />
 		
 	</typeAliases>
 	<mappers>
