@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.custom.blog.dao.BoardMapper">
+
+<insert id="insertBoard" parameterType="Board">
+INSERT INTO board
+(
+	boardnum
+	, menu_name
+	, title
+	, text
+	<if test="originalfile != null">
+	, originalfile
+	, savedfile	
+	</if>
+)
+VALUES
+(
+	board_seq.nextval
+	, #{menu_name}
+	, #{title}
+	, #{text}
+	<if test="originalfile != null">
+	, #{originalfile}
+	, #{savedfile}
+	</if>
+)
+</insert>
+
+<!-- <select id="selectRecentBoard" resultType="Board">
+SELECT * 
+FROM board
+ORDER BY regdate desc
+</select>
+
+<select id="selectBoard" parameterType="hashmap" resultType="Board" >
+SELECT * 
+FROM 
+	board
+WHERE
+	<if test="_parameter != null">
+		<choose>
+			<when test="searchItem == 'title'">title</when>
+			<when test="searchItem == 'text'">text</when>
+		</choose>
+		LIKE '%' || #{searchWord} || '%'
+	</if>
+ORDER BY
+	boardnum desc
+</select>
+ -->
+
+</mapper>

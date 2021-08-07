@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.custom.blog.vo.MenuVO;
+import com.custom.blog.vo.Menu;
 
 @Repository
 public class MenuDAO implements MenuMapper {
@@ -15,7 +15,7 @@ public class MenuDAO implements MenuMapper {
 	private SqlSession session;
 
 	@Override
-	public int insertMenu(MenuVO menu) {
+	public int insertMenu(Menu menu) {
 		
 		int cnt = 0;
 		
@@ -29,25 +29,11 @@ public class MenuDAO implements MenuMapper {
 		return cnt;
 	}
 
-	@Override
-	public int updateMenu(MenuVO menu) {
-		
-		int cnt = 0;
-		
-		try {
-			MenuMapper mapper = session.getMapper(MenuMapper.class);
-			cnt = mapper.updateMenu(menu);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return cnt;
-	}
 
 	@Override
-	public List<MenuVO> selectAllMenu() {
+	public List<Menu> selectAllMenu() {
 		
-		List<MenuVO> list = null;
+		List<Menu> list = null;
 		
 		try {
 			MenuMapper mapper = session.getMapper(MenuMapper.class);
@@ -59,21 +45,36 @@ public class MenuDAO implements MenuMapper {
 		return list;
 		
 	}
-
-	@Override
-	public int deleteMenu(int menu_id) {
-		
-		int cnt = 0;
-		
-		try {
-			MenuMapper mapper = session.getMapper(MenuMapper.class);
-			cnt = mapper.deleteMenu(menu_id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return cnt;
-	}
+	
+//	@Override
+//	public int updateMenu(Menu menu) {
+//		
+//		int cnt = 0;
+//		
+//		try {
+//			MenuMapper mapper = session.getMapper(MenuMapper.class);
+//			cnt = mapper.updateMenu(menu);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return cnt;
+//	}
+//
+//	@Override
+//	public int deleteMenu(int menu_id) {
+//		
+//		int cnt = 0;
+//		
+//		try {
+//			MenuMapper mapper = session.getMapper(MenuMapper.class);
+//			cnt = mapper.deleteMenu(menu_id);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return cnt;
+//	}
 	
 	
 }

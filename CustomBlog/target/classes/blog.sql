@@ -11,7 +11,7 @@ DROP SEQUENCE reply_seq;
 CREATE TABLE menu
 (
 	menu_id           number primary key
-	, menu_name  varchar2(30) not null
+	, menu_name  varchar2(30) not null unique
 	, menu_order number not null unique
 );
 
@@ -21,7 +21,7 @@ CREATE SEQUENCE menu_seq;
 CREATE TABLE board
 (	
 	boardnum       number primary key
-	, menu_order   number not null references menu(menu_order)
+	, menu_name    varchar2(30) not null references menu(menu_name)
 	, title        varchar2(200)  not null
 	, text         varchar2(4000) not null
 	, hitcount     number default 0

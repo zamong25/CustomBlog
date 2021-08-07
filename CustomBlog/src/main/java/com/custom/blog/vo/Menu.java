@@ -1,6 +1,6 @@
 package com.custom.blog.vo;
 
-public class MenuVO {
+public class Menu {
 	
 	private String menu_name;
 	private int menu_order;

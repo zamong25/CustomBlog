@@ -2,14 +2,20 @@ package com.custom.blog;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.custom.blog.service.MenuService;
+import com.custom.blog.vo.Menu;
 
 /**
  * Handles requests for the application home page.
@@ -17,8 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private MenuService service;
 	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -33,7 +42,10 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		List<Menu> menuList = service.selectAllMenu();
+//		model.addAttribute(formattedDate);
+		model.addAttribute("menuList", menuList);
+		
 		return "home";
 	}
-	
 }

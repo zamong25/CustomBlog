@@ -5,7 +5,7 @@
 
 <mapper namespace="com.custom.blog.dao.MenuMapper">
 
-<insert id="insertMenu" parameterType="String">
+<insert id="insertMenu" parameterType="Menu">
 INSERT INTO menu
 (
 	menu_id
@@ -22,9 +22,11 @@ VALUES
 
 <select id="selectAllMenu" resultType="menu">
 SELECT 
-	memu_name
+	menu_name
 FROM
 	menu
+ORDER BY
+	menu_order
 </select>
 
 <update id="updateMenu" parameterType="menu">
