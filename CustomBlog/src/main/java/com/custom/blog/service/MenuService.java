@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.custom.blog.dao.MenuDAO;
-import com.custom.blog.vo.MenuVO;
+import com.custom.blog.vo.Menu;
 
 @Service
 public class MenuService {
@@ -17,7 +17,7 @@ public class MenuService {
 	
 	
 	// <-- methods -->
-	public String createMenu(MenuVO menu) {
+	public String createMenu(Menu menu) {
 		
 		int result = dao.insertMenu(menu);
 		
@@ -29,36 +29,36 @@ public class MenuService {
 		return path;
 	}
 	
-	public List<MenuVO> selectAllMenu() {
+	public List<Menu> selectAllMenu() {
 		
-		List<MenuVO> list = new ArrayList<>();
+		List<Menu> list = new ArrayList<>();
 		list = dao.selectAllMenu();
 		
 		return list;
 	}
 	
-	public String updateMenu(MenuVO menu) {
-		
-		int result = dao.updateMenu(menu);
-		
-		String path = "";
-		
-		if (result > 0) path = "redirect:/";
-		else path = "redirect:/menu/update";
-		
-		return path;
-	}
-	
-	public String deleteMenu(int menu_id) {
-		
-		int result = dao.deleteMenu(menu_id);
-		
-		String path = "";
-		
-		if (result > 0) path = "redirect:/";
-		else path = "redirect:/menu/update";
-		
-		return path;
-	}
+//	public String updateMenu(Menu menu) {
+//		
+//		int result = dao.updateMenu(menu);
+//		
+//		String path = "";
+//		
+//		if (result > 0) path = "redirect:/";
+//		else path = "redirect:/menu/update";
+//		
+//		return path;
+//	}
+//	
+//	public String deleteMenu(int menu_id) {
+//		
+//		int result = dao.deleteMenu(menu_id);
+//		
+//		String path = "";
+//		
+//		if (result > 0) path = "redirect:/";
+//		else path = "redirect:/menu/update";
+//		
+//		return path;
+//	}
 	
 }
