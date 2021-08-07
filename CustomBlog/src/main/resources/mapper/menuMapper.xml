@@ -5,7 +5,7 @@
 
 <mapper namespace="com.custom.blog.dao.MenuMapper">
 
-<insert id="" parameterType="menu">
+<insert id="insertMenu" parameterType="String">
 INSERT INTO menu
 (
 	menu_id
@@ -15,19 +15,19 @@ INSERT INTO menu
 VALUES
 (
 	menu_seq.nextval
-	, #{menu_name}
-	, #{menu_order}
+	, #{menu_name, jdbcType=VARCHAR}
+	, menu_seq.currval
 )
 </insert>
 
-<select id="" resultType="menu">
+<select id="selectAllMenu" resultType="menu">
 SELECT 
 	memu_name
 FROM
 	menu
 </select>
 
-<update id="" parameterType="menu">
+<update id="updateMenu" parameterType="menu">
 UPDATE menu
 SET
 	menu_name = #{menu_name}
@@ -37,7 +37,7 @@ WEHRE
 </update>
 
 
-<delete id="" parameterType="string">
+<delete id="deleteMenu" parameterType="string">
 DELETE menu
 WHERE 
 	menu_id = #{menu_id}
