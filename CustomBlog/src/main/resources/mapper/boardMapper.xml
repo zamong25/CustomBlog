@@ -30,13 +30,57 @@ VALUES
 )
 </insert>
 
-<!-- <select id="selectRecentBoard" resultType="Board">
+<select id="selectRecentBoard" resultType="Board">
 SELECT * 
 FROM board
 ORDER BY regdate desc
 </select>
 
-<select id="selectBoard" parameterType="hashmap" resultType="Board" >
+
+<select id="selectOne" parameterType="int" resultType="Board">
+SELECT * 
+FROM board
+WHERE boardnum = #{boardnum}
+</select>
+
+
+<update id="updateBoard" parameterType="Board">
+UPDATE board
+SET
+	title = #{title}
+	, text = #{text}
+	, regdate = sysdate
+	
+	<if test="originalfile != null">
+	, originalfile = #{originalfile}
+	, savedfile = #{savedfile}
+	</if>
+	
+	<if test="originalfile == null">
+	, originalfile = ''
+	, savedfile = ''
+	</if>
+WHERE
+	boardnum = #{boardnum}
+</update>
+
+<delete id="deleteBoard" parameterType="int">
+DELETE board
+WHERE
+	boardnum = #{boardnum}
+</delete>
+
+<select id="selectBoardByMenu" parameterType="string" resultType="Board">
+SELECT *
+FROM board
+WHERE
+	menu_name = #{menu_name}
+ORDER BY
+	regdate desc
+</select>
+
+
+<!-- <select id="selectBoard" parameterType="hashmap" resultType="Board" >
 SELECT * 
 FROM 
 	board
@@ -50,7 +94,6 @@ WHERE
 	</if>
 ORDER BY
 	boardnum desc
-</select>
- -->
+</select> -->
 
 </mapper>

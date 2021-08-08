@@ -28,22 +28,5 @@ public class MenuController {
 	public String createMenuForm(Menu menu) {
 		return service.createMenu(menu); // send user to specific path
 	}
-	
-//	// the form to input data
-//	@RequestMapping(value="/menu/update", method=RequestMethod.GET)
-//	public String updateAndDeleteMenuForm(Model model) {
-//		
-//		List<Menu> menuList = service.selectAllMenu();
-//		model.addAttribute("menuList", menuList);
-//		
-//		return "menu/update"; // name of jsp file
-//	}
-//	
-//	// send data to database
-//	@RequestMapping(value="/menu/update", method=RequestMethod.POST)
-//	public String updateAndDeleteMenuForm(Menu menu) {
-//		
-//		return service.updateMenu(menu);
-//	}
-	
+
 }

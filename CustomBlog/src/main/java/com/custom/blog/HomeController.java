@@ -13,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.custom.blog.service.BoardService;
 import com.custom.blog.service.MenuService;
+import com.custom.blog.vo.Board;
 import com.custom.blog.vo.Menu;
 
 /**
@@ -24,7 +27,11 @@ import com.custom.blog.vo.Menu;
 public class HomeController {
 	
 	@Autowired
-	private MenuService service;
+	private MenuService menuService;
+	
+	@Autowired
+	private BoardService boardService;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -42,10 +49,26 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		List<Menu> menuList = service.selectAllMenu();
+//		List<Menu> menuList = service.selectAllMenu();
 //		model.addAttribute(formattedDate);
-		model.addAttribute("menuList", menuList);
+//		model.addAttribute("menuList", menuList);
 		
 		return "home";
+	}
+	
+	@RequestMapping("/selectRecentBoard")
+	@ResponseBody
+	public List<Board> sendRecentBoardtoHome() {
+		
+		List<Board> list = boardService.selectRecentBoard();
+		return list;
+	}
+	
+	
+	@RequestMapping("/selectBoardByMenu")
+	@ResponseBody
+	public List<Menu> selectBoardByMenu() {
+		List<Menu> menuList = menuService.selectAllMenu();
+		return menuList;
 	}
 }
