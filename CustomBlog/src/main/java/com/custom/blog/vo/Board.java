@@ -1,5 +1,7 @@
 package com.custom.blog.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class Board {
 	private String regdate;
 	private String originalfile;
 	private String savedfile;
+	private MultipartFile file; // no db
 }
