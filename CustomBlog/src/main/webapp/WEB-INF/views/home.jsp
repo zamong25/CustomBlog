@@ -5,14 +5,13 @@
 <html>
 <head>
 <style type="text/css">
-#menuList li { 
-	list-style: none; 
-	border-width: 1px; 
- 	border-style: solid; 
-	border-color: red; 
-	padding : 10px; 
- }
-
+	#menuList li { 
+		list-style: none; 
+		border-width: 1px; 
+	 	border-style: solid; 
+		border-color: red; 
+		padding : 10px; 
+	 }
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -21,46 +20,38 @@
 <script type="text/javascript">
 
 $(function() {
-	getMenu();
 	getRecentBoard();
-	$("#menuList").sortable();
-	$("#menuList").disableSelection();
+	$("#menuList li.home").on("click", getRecentBoard);
+	$("#menuList li.eachMenu").on("click" , getBoardByMenu);
+	/* $("#menuList").sortable();
+	$("#menuList").disableSelection(); */
 });
 
-function getMenu() {
-	
-	$.ajax({
-		url : "selectBoardByMenu"
-		, method : "GET"
-		, data : { }
-		, success : outputMenu
-	});
-}
 
-function outputMenu(res) {
-	let result = "";
-	
-	if (res.length == 0) {
-		$("#menuList").html("<b>There is no menu</b>");
-	} else {
-		
-		result += '<ul>'
-		$.each(res, function(index, item) {
-		
-		});
-		result += '</ul>'
-		
-		$("#menuList").html(result);
-	}
-}
-
-
-// select recent board
 function getRecentBoard() {
+	
 	$.ajax({
 		url : "selectRecentBoard"
 		, method : "GET"
 		, success : outputBoard
+		, error : function(err) {
+			console.log(err);
+		}
+	});
+}
+
+
+function getBoardByMenu() {
+	let menu_name = $(this).text();
+	
+	$.ajax({
+		url : "selectBoardByMenu"
+		, method : "GET"
+		, data : { "menu_name" : menu_name }
+		, success : outputBoard
+		, error : function(err) {
+			console.log(err);
+		}
 	});
 }
 
@@ -87,10 +78,10 @@ function outputBoard(res) {
 </head>
 <body>
 	<h1>menu</h1>
-	<div id="menuList"></div>
 	<ul id="menuList">
+		<li class="home">Home</li>
 		<c:forEach var="menu" items="${menuList}">		
-			<li>${menu.menu_name}</li>
+			<li class="eachMenu">${menu.menu_name}</li>
 		</c:forEach>
 	</ul>
 	<br>
