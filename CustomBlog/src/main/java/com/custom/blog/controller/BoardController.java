@@ -83,10 +83,11 @@ public class BoardController {
 		return boardService.deleteBoard(boardnum);
 	}
 	
-	public List<Board> selectBoardByMenu() {
-	
-		List<Board> list = boardService.selectRecentBoard();
+	@RequestMapping("/selectBoardByMenu")
+	@ResponseBody
+	public List<Board> selectBoardByMenu(String menu_name) {
+		List<Board> list = boardService.selectBoardByMenu(menu_name);
+		System.out.println(list);
 		return list;
 	}
-
 }

@@ -49,9 +49,9 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-//		List<Menu> menuList = service.selectAllMenu();
-//		model.addAttribute(formattedDate);
-//		model.addAttribute("menuList", menuList);
+		List<Menu> menuList = menuService.selectAllMenu();
+		model.addAttribute(formattedDate);
+		model.addAttribute("menuList", menuList);
 		
 		return "home";
 	}
@@ -64,11 +64,4 @@ public class HomeController {
 		return list;
 	}
 	
-	
-	@RequestMapping("/selectBoardByMenu")
-	@ResponseBody
-	public List<Menu> selectBoardByMenu() {
-		List<Menu> menuList = menuService.selectAllMenu();
-		return menuList;
-	}
 }
