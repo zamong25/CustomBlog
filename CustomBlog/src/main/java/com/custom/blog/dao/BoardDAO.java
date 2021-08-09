@@ -92,13 +92,14 @@ public class BoardDAO implements BoardMapper {
 	}
 
 	@Override
-	public List<Board> selectBoardByMenu(String menu_name) {
+	public List<Board> selectBoardByMenu(HashMap<String, String> search) {
+
 		
 		List<Board> list = null;
 		
 		try {
 			BoardMapper mapper = session.getMapper(BoardMapper.class);
-			list = mapper.selectBoardByMenu(menu_name);
+			list = mapper.selectBoardByMenu(search);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

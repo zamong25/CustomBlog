@@ -65,24 +65,12 @@ public class HomeController {
 	
 	@RequestMapping("/selectRecentBoard")
 	@ResponseBody
-	public Map<String, Object> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
-			, @RequestParam(value="searchWord", defaultValue="") String searchWord
-			, @RequestParam(value="page", defaultValue="1") int page) {
-		
-		Map<String, Object> result = new HashMap<String, Object>();
+	public List<Board> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
+			, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 
-		int totalCount = boardService.selectTotalCount(searchItem,searchWord);
-		
-		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, totalCount);
-		
-		System.out.println(totalCount);
-		
-		List<Board> boardlist = boardService.selectRecentBoard(searchItem, searchWord);
-		
-		result.put("boardlist", boardlist);
-		result.put("navi", navi);
-		
-		return result;
+		List<Board> list = boardService.selectRecentBoard(searchItem, searchWord);
+
+		return list;
 	}
 	
 }

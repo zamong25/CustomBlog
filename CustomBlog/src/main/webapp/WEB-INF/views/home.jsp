@@ -25,29 +25,29 @@
 let page = 1;
 
 $(function() {
-	getRecentBoard(1);
+	getRecentBoard();
 	$("#menuList li.home").on("click", init);
 	$("#menuList li.eachMenu").on("click" , getBoardByMenu);
-	$("#btn_search").on("click", getRecentBoard(1));
+	$("#btn_search").on("click", getRecentBoard);
 	/* $("#menuList").sortable();
 	$("#menuList").disableSelection(); */
 });
+
 
 function init() {
 	location.href = "/";
 }
 
 
-function getRecentBoard(page) {
+function getRecentBoard() {
 	
 	let searchItem = $("#searchItem>option:selected").val();
 	let searchWord = $("#searchWord").val();
-	let searchForm = $('#search');
 	
 	$.ajax({
 		url : "selectRecentBoard"
 		, method : "GET"
-		, data : { "searchItem" : searchItem, "searchWord" : searchWord, "page" : page }
+		, data : { "searchItem" : searchItem, "searchWord" : searchWord }
 		, success : outputBoard
 		, error : function(err) {				
 			console.log(err);
@@ -57,6 +57,8 @@ function getRecentBoard(page) {
 
 
 function getBoardByMenu() {
+	
+	$("#seeMordDiv").css("display", "block");
 	let menu_name = $(this).text();
 	
 	$.ajax({
@@ -73,62 +75,30 @@ function getBoardByMenu() {
 
 function outputBoard(res) {
 	
-	let boardlist = res.boardlist;
-	let navi = res.navi;
-	
 	let searchItem = $("#searchItem>option:selected").val();
 	let searchWord = $("#searchWord").val();
-	
-	
-	let boardResult = "";
-	let pagination = "";
 
+	let boardResult = "";
 	
+	let menu = $("#menuList li.eachMenu");
+
 	if (res.length == 0) {
 		$("#recentBoardDiv").html("<b>There is no board</b>");
 	} else {
 		
 		// boardlist
-		$.each(boardlist, function(key, value) {
-			boardResult += '<a href="/readBoard?boardnum='+ value.boardnum + '">'
-			boardResult += '<h3>' + value.title + '</h3>'
+		$.each(res, function(index, item) {
+			boardResult += '<a href="/readBoard?boardnum='+ item.boardnum + '">'
+			boardResult += '<h3>' + item.title + '</h3>'
 			boardResult += '</a>'
-			boardResult += value.menu_name + ' | ' + value.regdate + '<br>'
-			boardResult += value.text + '<br>'
+			boardResult += item.menu_name + ' | ' + item.regdate + '<br>'
+			boardResult += item.text + '<br>'
 		});
 		
 		$("#recentBoardDiv").html(boardResult);
+		$("#seeMore").attr('href', 'listBoard?menu=' + res[0].menu_name);
 		
-		// paging
-		pagination += '<br>'
-		pagination += '<a href="javascript:search(' + (navi.currentPage - navi.pagePerGroup) + ');"> ◁◁ </a> &nbsp;'
-            			 
-        pagination += '<a href="javascript:search(' + (navi.currentPage - 1) + ');"> ◀ </a> &nbsp;'
-		
-		 for (var page = navi.startPageGroup; page <= navi.endPageGroup; page++) {
-             
-			 if (navi.currentPage == page) { 
-            	pagination += '<span style="color:blue;font-weight:bolder;font-size:1.3em">' + page + '</span> &nbsp;';
-             }
-             else {
-            	pagination += '<a href="javascript:search(' + navi.currentPage + ');">' + page + '</a>'
-             }
-         }
-            			 
-         pagination += '<a href="javascript:search(' + (navi.currentPage + 1) + ');"> ▶ </a> &nbsp;'
-            			 
-         pagination += '<a href="javascript:search(' + (navi.currentPage + navi.pagePerGroup) + ');"> ▷▷ </a>'
-          
-         pagination += '<br>'
-      
-		$("#pagination").html(pagination);
 	}
-}
-
-function search(currentPage) {
-	
-	page = $('#page').val(currentPage);
-
 }
 
 </script>
@@ -142,19 +112,16 @@ function search(currentPage) {
 		</c:forEach>
 	</ul>
 	<br>
-	<form id="search" action="listboard" method="GET">
+		<form id="search" method="GET">
 			<select id="searchItem">
 				<option value="title"  ${searchItem=='title' ? 'selected' : ''}>Title</option>
 				<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
 			</select>
 			<input type="text" id="searchWord" value="${searchWord}">
-			<input type="hidden" name="page" id="page">
 			<input type="button" id="btn_search" value="Search">
 		</form>
 	<br>
+	<div id="seeMordDiv" style="display:none;"><a id="seeMore">See more</a></div>
 	<div id="recentBoardDiv"></div>
-	
-	<div id="pagination" ></div>
-	
 </body>
 </html>
