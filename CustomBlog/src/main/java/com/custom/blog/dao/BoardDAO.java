@@ -1,5 +1,6 @@
 package com.custom.blog.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,13 +31,13 @@ public class BoardDAO implements BoardMapper {
 	}
 
 	@Override
-	public List<Board> selectRecentBoard() {
+	public List<Board> selectRecentBoard(HashMap<String, String> search) {
 		
 		List<Board> list = null;
 		
 		try {
 			BoardMapper mapper = session.getMapper(BoardMapper.class);
-			list = mapper.selectRecentBoard();
+			list = mapper.selectRecentBoard(search);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
