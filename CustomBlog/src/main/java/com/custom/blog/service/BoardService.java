@@ -52,6 +52,7 @@ public class BoardService {
 		return path;
 	}
 	
+	// ajax
 	public List<Board> selectRecentBoard(String searchItem, String searchWord) {
 		
 		HashMap<String, String> search = new HashMap<String, String>();
@@ -158,9 +159,9 @@ public class BoardService {
 		return path;
 	}
 	
-	public List<Board> selectBoardByMenu(String menu_name) {
+	public List<Board> selectBoardByMenu(HashMap<String, String> search) {
 		
-		List<Board> list = dao.selectBoardByMenu(menu_name);
+		List<Board> list = dao.selectBoardByMenu(search);
 		return list;
 	}
 	

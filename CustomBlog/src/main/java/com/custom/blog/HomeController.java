@@ -35,6 +35,10 @@ public class HomeController {
 	@Autowired
 	private BoardService boardService;
 	
+	// pagination
+	private final int countPerPage = 3;
+	private final int pagePerGroup = 3;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -59,24 +63,14 @@ public class HomeController {
 		return "home";
 	}
 	
-	private final int countPerPage = 3;
-	private final int pagePerGroup = 3;
-	private int page = 1;
-	
 	@RequestMapping("/selectRecentBoard")
 	@ResponseBody
-	public Map<String, Object> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
+	public List<Board> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
 			, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
-		Map<String, Object> result = new HashMap<String, Object>();
 
-		int totalCount = boardService.selectTotalCount(searchItem,searchWord);
-		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, totalCount);
-		System.out.println(totalCount);
 		List<Board> list = boardService.selectRecentBoard(searchItem, searchWord);
-		
-		result.put("list", list);
-		result.put("navi", navi);
-		return result;
+
+		return list;
 	}
 	
 }

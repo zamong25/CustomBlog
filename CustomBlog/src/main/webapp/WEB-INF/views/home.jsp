@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
+<meta charset="UTF-8">
+<title> Home </title>
 <style type="text/css">
 	#menuList li { 
 		list-style: none; 
@@ -19,6 +21,9 @@
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
+
+let page = 1;
+
 $(function() {
 	getRecentBoard();
 	$("#menuList li.home").on("click", init);
@@ -27,6 +32,7 @@ $(function() {
 	/* $("#menuList").sortable();
 	$("#menuList").disableSelection(); */
 });
+
 
 function init() {
 	location.href = "/";
@@ -51,6 +57,8 @@ function getRecentBoard() {
 
 
 function getBoardByMenu() {
+	
+	$("#seeMordDiv").css("display", "block");
 	let menu_name = $(this).text();
 	
 	$.ajax({
@@ -67,30 +75,29 @@ function getBoardByMenu() {
 
 function outputBoard(res) {
 	
-	let list = res.list;
-	let result = "";
-	console.log(res.navi.pagePerGroup);
+	let searchItem = $("#searchItem>option:selected").val();
+	let searchWord = $("#searchWord").val();
+
+	let boardResult = "";
+	
+	let menu = $("#menuList li.eachMenu");
+
 	if (res.length == 0) {
 		$("#recentBoardDiv").html("<b>There is no board</b>");
 	} else {
 		
-		$.each(list, function(key, value) {
-			result += '<a href="/readBoard?boardnum='+ value.boardnum + '">'
-			result += '<h3>' + value.title + '</h3>'
-			result += '</a>'
-			result += value.menu_name + ' | ' + value.regdate + '<br>'
-			result += value.text + '<br>'
+		// boardlist
+		$.each(res, function(index, item) {
+			boardResult += '<a href="/readBoard?boardnum='+ item.boardnum + '">'
+			boardResult += '<h3>' + item.title + '</h3>'
+			boardResult += '</a>'
+			boardResult += item.menu_name + ' | ' + item.regdate + '<br>'
+			boardResult += item.text + '<br>'
 		});
 		
-		 for (var num=startpage; num<=endpage; num++) {
-             if (num == page) {
-            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
-             } else {
-            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
-             }
-          }
-      		
-		$("#recentBoardDiv").html(result);
+		$("#recentBoardDiv").html(boardResult);
+		$("#seeMore").attr('href', 'listBoard?menu=' + res[0].menu_name);
+		
 	}
 }
 
@@ -105,7 +112,7 @@ function outputBoard(res) {
 		</c:forEach>
 	</ul>
 	<br>
-	<form id="search" action="listboard" method="GET">
+		<form id="search" method="GET">
 			<select id="searchItem">
 				<option value="title"  ${searchItem=='title' ? 'selected' : ''}>Title</option>
 				<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
@@ -114,9 +121,7 @@ function outputBoard(res) {
 			<input type="button" id="btn_search" value="Search">
 		</form>
 	<br>
+	<div id="seeMordDiv" style="display:none;"><a id="seeMore">See more</a></div>
 	<div id="recentBoardDiv"></div>
-	
-	
-	
 </body>
 </html>

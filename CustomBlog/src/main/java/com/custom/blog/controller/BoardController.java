@@ -1,5 +1,6 @@
 package com.custom.blog.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ public class BoardController {
 	
 
 	@RequestMapping(value="/readBoard", method=RequestMethod.GET)
-	public String readBoard(@RequestParam int boardnum, Model model) {
+	public String readBoard(int boardnum, Model model) {
 		
 		Board board = boardService.selectOne(boardnum);
 		model.addAttribute("board", board);
@@ -75,17 +76,48 @@ public class BoardController {
 		return boardService.updateBoard(board);
 	}
 	
+	// ajax 
 	@RequestMapping("/deleteBoard")
 	@ResponseBody
 	public String deleteBoard(int boardnum) {
 		return boardService.deleteBoard(boardnum);
 	}
 	
+	// ajax
 	@RequestMapping("/selectBoardByMenu")
 	@ResponseBody
 	public List<Board> selectBoardByMenu(String menu_name) {
-		List<Board> list = boardService.selectBoardByMenu(menu_name);
-		System.out.println(list);
+		
+		HashMap<String, String> init = new HashMap<String, String>();
+		init.put("searchItem", "title");
+		init.put("searchWord", "");
+		init.put("menu_name", menu_name);
+		
+		List<Board> list = boardService.selectBoardByMenu(init);
 		return list;
 	}
+	
+	// model
+	@RequestMapping("/listBoard")
+	public String sendBoardByMenu(@RequestParam(value="menu") String menu
+			, @RequestParam(value="searchItem", defaultValue="title") String searchItem
+			, @RequestParam(value="searchWord", defaultValue="") String searchWord, Model model) {
+		
+		HashMap<String, String> search = new HashMap<String, String>();
+		search.put("searchItem", searchItem);
+		search.put("searchWord", searchWord);
+		search.put("menu_name", menu);
+		
+		List<Board> list = boardService.selectBoardByMenu(search);
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("menu", menu);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchWord", searchWord);
+		
+		return "board/listBoard";
+	}
+	
 }
