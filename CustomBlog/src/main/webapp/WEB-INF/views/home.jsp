@@ -21,20 +21,29 @@
 
 $(function() {
 	getRecentBoard();
-	$("#menuList li.home").on("click", getRecentBoard);
+	$("#menuList li.home").on("click", init);
 	$("#menuList li.eachMenu").on("click" , getBoardByMenu);
+	$("#btn_search").on("click", getRecentBoard);
 	/* $("#menuList").sortable();
 	$("#menuList").disableSelection(); */
 });
 
+function init() {
+	location.href = "/";
+}
+
 
 function getRecentBoard() {
+	
+	let searchItem = $("#searchItem>option:selected").val();
+	let searchWord = $("#searchWord").val();
 	
 	$.ajax({
 		url : "selectRecentBoard"
 		, method : "GET"
+		, data : { "searchItem" : searchItem, "searchWord" : searchWord }
 		, success : outputBoard
-		, error : function(err) {
+		, error : function(err) {				
 			console.log(err);
 		}
 	});
@@ -85,6 +94,18 @@ function outputBoard(res) {
 		</c:forEach>
 	</ul>
 	<br>
+	<form id="search" action="listboard" method="GET">
+			<select id="searchItem">
+				<option value="title"  ${searchItem=='title' ? 'selected' : ''}>Title</option>
+				<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
+			</select>
+			<input type="text" id="searchWord" value="${searchWord}">
+			<input type="button" id="btn_search" value="Search">
+		</form>
+	<br>
 	<div id="recentBoardDiv"></div>
+	
+	
+	
 </body>
 </html>

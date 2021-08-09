@@ -34,7 +34,6 @@ public class BoardController {
 		return "board/writeBoard";
 	}
 	
-	// ajax
 	@RequestMapping(value="/createBoard", method=RequestMethod.POST)
 	@ResponseBody
 	public String createBoardForm(Board board) {
@@ -56,7 +55,6 @@ public class BoardController {
 		boardService.fileDownload(boardnum);
 	}
 	
-	// set data
 	@RequestMapping("/updateBoard")
 	public String updateBoard(@RequestParam int boardnum, Model model) {
 		

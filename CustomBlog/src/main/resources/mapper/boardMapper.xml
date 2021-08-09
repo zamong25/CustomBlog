@@ -30,9 +30,17 @@ VALUES
 )
 </insert>
 
-<select id="selectRecentBoard" resultType="Board">
+<select id="selectRecentBoard" parameterType="HashMap" resultType="Board">
 SELECT * 
 FROM board
+WHERE
+	<if test="_parameter != null">
+		<choose>
+			<when test="searchItem == 'title'">LOWER(title)</when>
+			<when test="searchItem == 'text'">LOWER(text)</when>
+		</choose>
+		LIKE '%' || LOWER(#{searchWord}) || '%'
+	</if>
 ORDER BY regdate desc
 </select>
 
@@ -79,21 +87,5 @@ ORDER BY
 	regdate desc
 </select>
 
-
-<!-- <select id="selectBoard" parameterType="hashmap" resultType="Board" >
-SELECT * 
-FROM 
-	board
-WHERE
-	<if test="_parameter != null">
-		<choose>
-			<when test="searchItem == 'title'">title</when>
-			<when test="searchItem == 'text'">text</when>
-		</choose>
-		LIKE '%' || #{searchWord} || '%'
-	</if>
-ORDER BY
-	boardnum desc
-</select> -->
 
 </mapper>

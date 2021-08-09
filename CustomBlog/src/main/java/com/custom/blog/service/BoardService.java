@@ -52,9 +52,14 @@ public class BoardService {
 		return path;
 	}
 	
-	public List<Board> selectRecentBoard() {
+	public List<Board> selectRecentBoard(String searchItem, String searchWord) {
 		
-		List<Board> list = dao.selectRecentBoard();
+		HashMap<String, String> search = new HashMap<String, String>();
+		
+		search.put("searchItem", searchItem);
+		search.put("searchWord", searchWord);
+		
+		List<Board> list = dao.selectRecentBoard(search);
 		return list;
 	}
 	

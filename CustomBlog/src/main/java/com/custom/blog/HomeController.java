@@ -58,9 +58,10 @@ public class HomeController {
 	
 	@RequestMapping("/selectRecentBoard")
 	@ResponseBody
-	public List<Board> sendRecentBoardtoHome() {
+	public List<Board> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
+			, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		
-		List<Board> list = boardService.selectRecentBoard();
+		List<Board> list = boardService.selectRecentBoard(searchItem, searchWord);
 		return list;
 	}
 	
