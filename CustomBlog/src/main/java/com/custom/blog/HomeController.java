@@ -35,11 +35,6 @@ public class HomeController {
 	@Autowired
 	private BoardService boardService;
 	
-	// pagination
-	private final int countPerPage = 3;
-	private final int pagePerGroup = 3;
-	
-	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
