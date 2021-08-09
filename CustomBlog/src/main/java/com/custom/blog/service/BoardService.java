@@ -36,7 +36,7 @@ public class BoardService {
 		
 		MultipartFile file = board.getFile();
 		
-		if (!file.isEmpty()) {
+		if (file != null) {
 			String savedFile = FileService.saveFile(file, uploadPath);
 			board.setOriginalfile(file.getOriginalFilename());
 			board.setSavedfile(savedFile);
@@ -129,7 +129,7 @@ public class BoardService {
 		
 		MultipartFile file = board.getFile();
 		
-		if (!file.isEmpty()) {
+		if (file != null) {
 			String savedFilename = FileService.saveFile(file, uploadPath);
 			
 			board.setOriginalfile(file.getOriginalFilename());

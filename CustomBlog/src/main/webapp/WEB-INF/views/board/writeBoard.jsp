@@ -38,10 +38,7 @@ function insert() {
 	formData.append("title", title);
 	formData.append("menu_name", menuName);
 	formData.append("text", text);
-	
-	if (file.length == 0) {
-		formData.append("file", file);
-	}
+	formData.append("file", file);
 	
 	$.ajax({
 		url : 'createBoard'
@@ -72,11 +69,8 @@ function update() {
 	formData.append("title", title);
 	formData.append("menu_name", menuName);
 	formData.append("text", text);
-	
-	if (file.trim().length == 0) {
-		formData.append("file", file);
-	}
-	
+	formData.append("file", file);
+
 	$.ajax({
 		url : 'updateBoard'
 		, method : 'POST'

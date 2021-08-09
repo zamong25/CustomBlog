@@ -19,6 +19,8 @@ import com.custom.blog.service.MenuService;
 import com.custom.blog.vo.Board;
 import com.custom.blog.vo.Menu;
 
+import com.custom.blog.util.PageNavigator;
+
 @Controller
 public class BoardController {
 	
@@ -27,6 +29,11 @@ public class BoardController {
 	
 	@Autowired
 	private MenuService menuService;
+	
+	// pagination
+	private final int countPerPage = 3;
+	private final int pagePerGroup = 3;
+		
 	
 	@RequestMapping(value="/createBoard", method=RequestMethod.GET)
 	public String createBoardForm(Model model) {
@@ -100,8 +107,10 @@ public class BoardController {
 	// model
 	@RequestMapping("/listBoard")
 	public String sendBoardByMenu(@RequestParam(value="menu") String menu
+			, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 			, @RequestParam(value="searchItem", defaultValue="title") String searchItem
-			, @RequestParam(value="searchWord", defaultValue="") String searchWord, Model model) {
+			, @RequestParam(value="searchWord", defaultValue="") String searchWord
+			, Model model) {
 		
 		HashMap<String, String> search = new HashMap<String, String>();
 		search.put("searchItem", searchItem);
@@ -109,13 +118,15 @@ public class BoardController {
 		search.put("menu_name", menu);
 		
 		List<Board> list = boardService.selectBoardByMenu(search);
+		int totalRecordCount = boardService.selectTotalCount(searchItem, searchWord);
 		
-		System.out.println(list);
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, currentPage, totalRecordCount);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("menu", menu);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("navi", navi);
 		
 		return "board/listBoard";
 	}

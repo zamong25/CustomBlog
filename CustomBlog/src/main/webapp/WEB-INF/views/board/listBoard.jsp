@@ -23,14 +23,15 @@ input[type=submit] {
 <body>
 
 	<div>
-		<h3>${list[0].menu_name}</h3>
+		<h3>${menu}</h3>
 		
-		<form id="search" action="listboard" method="GET">
-			<select id="searchItem">
+		<form id="search" action="listBoard" method="GET">
+			<input type="hidden" name="menu" value="${menu}">
+			<select name="searchItem">
 				<option value="title" ${searchItem=='title' ? 'selected' : ''}>Title</option>
 				<option value="text" ${searchItem=='text'  ? 'selected' : ''}>Text</option>
 			</select>
-			<input type="text" id="searchWord" value="${searchWord}">
+			<input type="text" name="searchWord" value="${searchWord}">
 			<input type="submit" id="btn" value="Search">
 		</form>
 	</div>
@@ -45,6 +46,35 @@ input[type=submit] {
 			<div>${board.menu_name} | ${board.regdate}</div>
 			<div>${board.text}</div>
 		</c:forEach>
+	</div>
+	
+	<div class="navigator">
+		<a href="listBoard?menu=${menu}&currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+		◁◁
+		</a>
+	
+		<a href="listBoard?menu=${menu}&currentPage=${navi.currentPage-1}&searchItem=${searchItem}&searchWord=${searchWord}">
+		◀
+		</a>&nbsp;
+		
+		<c:forEach var="page" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
+			<c:if test="${navi.currentPage == page}">
+				<span style="color:blue;font-weight:bolder;font-size:1.3em">${page}</span> &nbsp;
+			</c:if>
+			
+			<c:if test="${navi.currentPage != page}">
+				<a href="listBoard?menu=${menu}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
+			</c:if>	
+		</c:forEach>
+		
+		<a href="listBoard?menu=${menu}&currentPage=${navi.currentPage+1}&searchItem=${searchItem}&searchWord=${searchWord}">
+		▶
+		</a>
+		&nbsp;
+		
+		<a href="listBoard?menu=${menu}&currentPage=${navi.currentPage+navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+		▷▷
+		</a>
 	</div>
 	
 </body>
