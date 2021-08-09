@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
+<meta charset="UTF-8">
+<title> Home </title>
 <style type="text/css">
 	#menuList li { 
 		list-style: none; 
@@ -19,11 +21,14 @@
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
+
+let page = 1;
+
 $(function() {
-	getRecentBoard();
+	getRecentBoard(1);
 	$("#menuList li.home").on("click", init);
 	$("#menuList li.eachMenu").on("click" , getBoardByMenu);
-	$("#btn_search").on("click", getRecentBoard);
+	$("#btn_search").on("click", getRecentBoard(1));
 	/* $("#menuList").sortable();
 	$("#menuList").disableSelection(); */
 });
@@ -33,15 +38,16 @@ function init() {
 }
 
 
-function getRecentBoard() {
+function getRecentBoard(page) {
 	
 	let searchItem = $("#searchItem>option:selected").val();
 	let searchWord = $("#searchWord").val();
+	let searchForm = $('#search');
 	
 	$.ajax({
 		url : "selectRecentBoard"
 		, method : "GET"
-		, data : { "searchItem" : searchItem, "searchWord" : searchWord }
+		, data : { "searchItem" : searchItem, "searchWord" : searchWord, "page" : page }
 		, success : outputBoard
 		, error : function(err) {				
 			console.log(err);
@@ -67,31 +73,62 @@ function getBoardByMenu() {
 
 function outputBoard(res) {
 	
-	let list = res.list;
-	let result = "";
-	console.log(res.navi.pagePerGroup);
+	let boardlist = res.boardlist;
+	let navi = res.navi;
+	
+	let searchItem = $("#searchItem>option:selected").val();
+	let searchWord = $("#searchWord").val();
+	
+	
+	let boardResult = "";
+	let pagination = "";
+
+	
 	if (res.length == 0) {
 		$("#recentBoardDiv").html("<b>There is no board</b>");
 	} else {
 		
-		$.each(list, function(key, value) {
-			result += '<a href="/readBoard?boardnum='+ value.boardnum + '">'
-			result += '<h3>' + value.title + '</h3>'
-			result += '</a>'
-			result += value.menu_name + ' | ' + value.regdate + '<br>'
-			result += value.text + '<br>'
+		// boardlist
+		$.each(boardlist, function(key, value) {
+			boardResult += '<a href="/readBoard?boardnum='+ value.boardnum + '">'
+			boardResult += '<h3>' + value.title + '</h3>'
+			boardResult += '</a>'
+			boardResult += value.menu_name + ' | ' + value.regdate + '<br>'
+			boardResult += value.text + '<br>'
 		});
 		
-		 for (var num=startpage; num<=endpage; num++) {
-             if (num == page) {
-            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
-             } else {
-            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
+		$("#recentBoardDiv").html(boardResult);
+		
+		// paging
+		pagination += '<br>'
+		pagination += '<a href="javascript:search(' + (navi.currentPage - navi.pagePerGroup) + ');"> ◁◁ </a> &nbsp;'
+            			 
+        pagination += '<a href="javascript:search(' + (navi.currentPage - 1) + ');"> ◀ </a> &nbsp;'
+		
+		 for (var page = navi.startPageGroup; page <= navi.endPageGroup; page++) {
+             
+			 if (navi.currentPage == page) { 
+            	pagination += '<span style="color:blue;font-weight:bolder;font-size:1.3em">' + page + '</span> &nbsp;';
              }
-          }
-      		
-		$("#recentBoardDiv").html(result);
+             else {
+            	pagination += '<a href="javascript:search(' + navi.currentPage + ');">' + page + '</a>'
+             }
+         }
+            			 
+         pagination += '<a href="javascript:search(' + (navi.currentPage + 1) + ');"> ▶ </a> &nbsp;'
+            			 
+         pagination += '<a href="javascript:search(' + (navi.currentPage + navi.pagePerGroup) + ');"> ▷▷ </a>'
+          
+         pagination += '<br>'
+      
+		$("#pagination").html(pagination);
 	}
+}
+
+function search(currentPage) {
+	
+	page = $('#page').val(currentPage);
+
 }
 
 </script>
@@ -111,12 +148,13 @@ function outputBoard(res) {
 				<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
 			</select>
 			<input type="text" id="searchWord" value="${searchWord}">
+			<input type="hidden" name="page" id="page">
 			<input type="button" id="btn_search" value="Search">
 		</form>
 	<br>
 	<div id="recentBoardDiv"></div>
 	
-	
+	<div id="pagination" ></div>
 	
 </body>
 </html>
