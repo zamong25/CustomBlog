@@ -57,6 +57,7 @@ function getBoardByMenu() {
 		url : "selectBoardByMenu"
 		, method : "GET"
 		, data : { "menu_name" : menu_name }
+		, dataType : "json"
 		, success : outputBoard
 		, error : function(err) {
 			console.log(err);
@@ -65,20 +66,30 @@ function getBoardByMenu() {
 }
 
 function outputBoard(res) {
-	let result = "";
 	
+	let list = res.list;
+	let result = "";
+	console.log(res.navi.pagePerGroup);
 	if (res.length == 0) {
 		$("#recentBoardDiv").html("<b>There is no board</b>");
 	} else {
 		
-		$.each(res, function(index, item) {
-			result += '<a href="/readBoard?boardnum='+ item.boardnum + '">'
-			result += '<h3>' + item.title + '</h3>'
+		$.each(list, function(key, value) {
+			result += '<a href="/readBoard?boardnum='+ value.boardnum + '">'
+			result += '<h3>' + value.title + '</h3>'
 			result += '</a>'
-			result += item.menu_name + ' | ' + item.regdate + '<br>'
-			result += item.text + '<br>'
+			result += value.menu_name + ' | ' + value.regdate + '<br>'
+			result += value.text + '<br>'
 		});
 		
+		 for (var num=startpage; num<=endpage; num++) {
+             if (num == page) {
+            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
+             } else {
+            	 result += '<a href="#" onclick="commentList(' + board_id + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
+             }
+          }
+      		
 		$("#recentBoardDiv").html(result);
 	}
 }

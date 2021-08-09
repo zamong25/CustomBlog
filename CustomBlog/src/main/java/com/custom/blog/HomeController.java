@@ -2,8 +2,10 @@ package com.custom.blog;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.custom.blog.util.PageNavigator;
 
 import com.custom.blog.service.BoardService;
 import com.custom.blog.service.MenuService;
@@ -56,13 +59,24 @@ public class HomeController {
 		return "home";
 	}
 	
+	private final int countPerPage = 3;
+	private final int pagePerGroup = 3;
+	private int page = 1;
+	
 	@RequestMapping("/selectRecentBoard")
 	@ResponseBody
-	public List<Board> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
+	public Map<String, Object> sendRecentBoardtoHome(@RequestParam(value="searchItem", defaultValue="title") String searchItem
 			, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
-		
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		int totalCount = boardService.selectTotalCount(searchItem,searchWord);
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, totalCount);
+		System.out.println(totalCount);
 		List<Board> list = boardService.selectRecentBoard(searchItem, searchWord);
-		return list;
+		
+		result.put("list", list);
+		result.put("navi", navi);
+		return result;
 	}
 	
 }

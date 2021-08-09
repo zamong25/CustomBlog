@@ -12,4 +12,5 @@ public interface BoardMapper {
 	public int updateBoard(Board board);
 	public int deleteBoard(int boardNum);
 	public List<Board> selectBoardByMenu(String menu_name);
+	public int selectTotalCount(HashMap<String, String> paramMap);
 }

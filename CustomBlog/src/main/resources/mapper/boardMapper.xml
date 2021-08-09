@@ -87,5 +87,20 @@ ORDER BY
 	regdate desc
 </select>
 
+<select id="selectTotalCount" parameterType="hashmap" resultType="int">
+select
+	count(*)
+from
+	board
+WHERE
+	<if test="_parameter != null">
+		<choose>
+			<when test="searchItem == 'title'">LOWER(title)</when>
+			<when test="searchItem == 'text'">LOWER(text)</when>
+		</choose>
+		LIKE '%' || LOWER(#{searchWord}) || '%'
+	</if>
+</select>
+
 
 </mapper>

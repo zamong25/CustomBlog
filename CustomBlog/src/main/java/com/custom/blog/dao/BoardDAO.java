@@ -106,4 +106,16 @@ public class BoardDAO implements BoardMapper {
 		return list;
 	}
 
+	@Override
+	public int selectTotalCount(HashMap<String, String> paramMap) {
+		int totalCount = 0;
+		try {
+			BoardMapper mapper = session.getMapper(BoardMapper.class);
+			totalCount = mapper.selectTotalCount(paramMap);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalCount;
+	}
+
 }

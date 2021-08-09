@@ -163,5 +163,15 @@ public class BoardService {
 		List<Board> list = dao.selectBoardByMenu(menu_name);
 		return list;
 	}
+	
+	public int selectTotalCount(String searchItem ,String searchWord) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchItem", searchItem);
+		paramMap.put("searchWord", searchWord);
+		return dao.selectTotalCount(paramMap);
+	}
+	
+	
+	
 
 }
