@@ -53,12 +53,7 @@ public class BoardService {
 	}
 	
 	// ajax
-	public List<Board> selectRecentBoard(String searchItem, String searchWord) {
-		
-		HashMap<String, String> search = new HashMap<String, String>();
-		
-		search.put("searchItem", searchItem);
-		search.put("searchWord", searchWord);
+	public List<Board> selectRecentBoard(HashMap<String, String> search) {
 		
 		List<Board> list = dao.selectRecentBoard(search);
 		return list;
@@ -159,16 +154,18 @@ public class BoardService {
 		return path;
 	}
 	
-	public List<Board> selectBoardByMenu(HashMap<String, String> search) {
+	public List<Board> selectBoardByMenu(HashMap<String, String> search, int startRecord,int countPerPage) {
 		
-		List<Board> list = dao.selectBoardByMenu(search);
+		List<Board> list = dao.selectBoardByMenu(search, startRecord,countPerPage);
 		return list;
 	}
 	
-	public int selectTotalCount(String searchItem ,String searchWord) {
+	public int selectTotalCount(String searchItem ,String searchWord, String menu) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("searchItem", searchItem);
 		paramMap.put("searchWord", searchWord);
+		paramMap.put("menu_name", menu);
+		
 		return dao.selectTotalCount(paramMap);
 	}
 	

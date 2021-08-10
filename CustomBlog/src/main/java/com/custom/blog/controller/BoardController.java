@@ -100,13 +100,15 @@ public class BoardController {
 		init.put("searchWord", "");
 		init.put("menu_name", menu_name);
 		
-		List<Board> list = boardService.selectBoardByMenu(init);
+		System.out.print("menu_name : " + menu_name);
+		
+		List<Board> list = boardService.selectRecentBoard(init);
 		return list;
 	}
 	
 	// model
 	@RequestMapping("/listBoard")
-	public String sendBoardByMenu(@RequestParam(value="menu") String menu
+	public String sendBoardByMenu(@RequestParam(value="menu", defaultValue="") String menu
 			, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 			, @RequestParam(value="searchItem", defaultValue="title") String searchItem
 			, @RequestParam(value="searchWord", defaultValue="") String searchWord
@@ -117,10 +119,11 @@ public class BoardController {
 		search.put("searchWord", searchWord);
 		search.put("menu_name", menu);
 		
-		List<Board> list = boardService.selectBoardByMenu(search);
-		int totalRecordCount = boardService.selectTotalCount(searchItem, searchWord);
-		
+		int totalRecordCount = boardService.selectTotalCount(searchItem, searchWord, menu);
 		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, currentPage, totalRecordCount);
+		
+		List<Board> list = boardService.selectBoardByMenu(search, navi.getStartRecord(), navi.getCountPerPage());
+		
 		
 		model.addAttribute("list", list);
 		model.addAttribute("menu", menu);

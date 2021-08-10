@@ -34,6 +34,10 @@ VALUES
 SELECT * 
 FROM board
 WHERE
+	<if test="menu_name != null">
+		menu_name = #{menu_name}
+	AND
+	</if>
 	<if test="_parameter != null">
 		<choose>
 			<when test="searchItem == 'title'">LOWER(title)</when>
@@ -101,6 +105,8 @@ select
 from
 	board
 WHERE
+	menu_name = #{menu_name}
+AND
 	<if test="_parameter != null">
 		<choose>
 			<when test="searchItem == 'title'">LOWER(title)</when>
