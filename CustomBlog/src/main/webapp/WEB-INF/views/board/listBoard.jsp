@@ -28,15 +28,6 @@ input[type=submit] {
 	width : 25px;
 }
 </style>
-<script type="text/javascript">
-
-$(function() {
-	
-	let page = $("$page").val();
-	
-	
-});
-</script>
 </head>
 <body>
 

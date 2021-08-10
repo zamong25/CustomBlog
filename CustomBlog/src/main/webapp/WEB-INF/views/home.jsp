@@ -20,7 +20,9 @@
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
+
 let page = 1;
+let menuName = "";
 
 $(function() {
 	getRecentBoard();
@@ -57,12 +59,14 @@ function getRecentBoard() {
 function getBoardByMenu() {
 	
 	$("#seeMordDiv").css("display", "block");
-	let menu_name = $(this).text();
+	menuName = $(this).text();
+	
+	console.log(menuName); // it works
 	
 	$.ajax({
 		url : "selectBoardByMenu"
 		, method : "GET"
-		, data : { "menu_name" : menu_name }
+		, data : { "menu_name" : menuName }
 		, dataType : "json"
 		, success : outputBoard
 		, error : function(err) {
@@ -92,13 +96,9 @@ function outputBoard(res) {
 		});
 		
 		$("#recentBoardDiv").html(boardResult);
-		$("#seeMore").attr('href', '/listBoard?menu=' + res[0].menu_name);
-		
-		/* $("#seeMore").on('click', function() {
-			$(location).attr('href', '/listBoard?menu=' + res[0].menu_name);
-		}); */
-		
 	}
+	
+	$("#seeMore").attr('href', '/listBoard?menu=' + menuName);
 }
 
 </script>

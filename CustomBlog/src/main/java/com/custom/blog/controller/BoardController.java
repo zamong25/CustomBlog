@@ -124,7 +124,6 @@ public class BoardController {
 		
 		List<Board> list = boardService.selectBoardByMenu(search, navi.getStartRecord(), navi.getCountPerPage());
 		
-		
 		model.addAttribute("list", list);
 		model.addAttribute("menu", menu);
 		model.addAttribute("searchItem", searchItem);
