@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.custom.blog.dao.ReplyMapper">
+
+<insert id="insertReply" parameterType="Reply">
+INSERT INTO reply
+(
+	replynum
+	, boardnum
+	, userid
+	, userpw
+	, replytext
+)
+VALUES
+(
+	reply_seq.nextval
+	, #{boardnum}
+	, #{userid}
+	, #{userpw}
+	, #{replytext}
+)
+</insert>
+
+<select id="selectReplyByBoard" parameterType="int" resultType="Reply">
+SELECT *
+FROM
+	reply
+WHERE
+	boardnum = #{boardnum}
+ORDER BY
+	regdate desc
+</select>
+
+<select id="selectOneReply" parameterType="int" resultType="Reply">
+SELECT
+	userid
+	, userpw
+	, replytext
+FROM
+	reply
+WHERE
+	replynum = #{replynum}
+</select>
+
+
+<update id="updateReply" parameterType="Reply">
+UPDATE reply
+SET
+	userpw = #{userpw}
+	, replytext = #{replytext}
+	, regdate = sysdate
+WHERE
+	replynum = #{replynum}
+</update> 
+
+<delete id="deleteReply" parameterType="int">
+DELETE FROM reply
+WHERE
+	replynum = #{replynum}
+</delete>
+
+</mapper>

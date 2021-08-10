@@ -31,7 +31,7 @@ VALUES
 </insert>
 
 <select id="selectRecentBoard" parameterType="HashMap" resultType="Board">
-SELECT * 
+SELECT *
 FROM board
 WHERE
 	<if test="menu_name != null">

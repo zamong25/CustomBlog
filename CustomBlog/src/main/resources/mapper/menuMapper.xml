@@ -20,7 +20,7 @@ VALUES
 )
 </insert>
 
-<select id="selectAllMenu" resultType="menu">
+<select id="selectAllMenu" resultType="Menu">
 SELECT 
 	menu_name
 FROM
@@ -29,7 +29,7 @@ ORDER BY
 	menu_order
 </select>
 
-<update id="updateMenu" parameterType="menu">
+<update id="updateMenu" parameterType="Menu">
 UPDATE menu
 SET
 	menu_name = #{menu_name}
@@ -39,7 +39,7 @@ WEHRE
 </update>
 
 
-<delete id="deleteMenu" parameterType="string">
+<delete id="deleteMenu" parameterType="String">
 DELETE menu
 WHERE 
 	menu_id = #{menu_id}

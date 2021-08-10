@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -25,12 +24,28 @@ let page = 1;
 let menuName = "";
 
 $(function() {
+	
 	getRecentBoard();
 	$("#menuList li.home").on("click", init);
 	$("#menuList li.eachMenu").on("click" , getBoardByMenu);
 	$("#btn_search").on("click", getRecentBoard);
-	/* $("#menuList").sortable();
-	$("#menuList").disableSelection(); */
+	
+	// when not logined
+	$("#btn_login").on("click", function() {
+		$(location).attr("href", "/login");
+	})
+	
+	
+	// when logined 
+	$("#btn_writeBoard").on("click", function() {
+		$(location).attr("href", "/writeBoard");
+	})
+	
+	$("#btn_logout").on("click", function() {
+		$(location).attr("href", "/logout");
+	})
+
+	
 });
 
 
@@ -88,11 +103,13 @@ function outputBoard(res) {
 		
 		// boardlist
 		$.each(res, function(index, item) {
-			boardResult += '<a href="/readBoard?boardnum='+ item.boardnum + '">'
-			boardResult += '<h3>' + item.title + '</h3>'
-			boardResult += '</a>'
-			boardResult += item.menu_name + ' | ' + item.regdate + '<br>'
-			boardResult += item.text + '<br>'
+			if (index < 6) {
+				boardResult += '<a href="/readBoard?boardnum='+ item.boardnum + '">'
+				boardResult += '	<h3>' + item.title + '</h3>'
+				boardResult += '</a>'
+				boardResult += item.menu_name + ' | ' + item.regdate + '<br>'
+				boardResult += item.text + '<br>'
+			}
 		});
 		
 		$("#recentBoardDiv").html(boardResult);
@@ -104,7 +121,22 @@ function outputBoard(res) {
 </script>
 </head>
 <body>
-	<h1>menu</h1>
+
+	<h2>BLOG</h2>
+	
+	<c:choose>
+		<c:when test="${not empty sessionScope.loginId}">
+			<h1>Welcome ${sessionScope.loginName}</h1>
+			<input type="button" id="btn_writeBoard" value="WRITE BOARD">
+			<input type="button" id="btn_logout" value="LOGOUT">
+		</c:when>
+		
+		<c:otherwise>
+			<img src="resources/images/login.png" id="btn_login" width="20" height="20">
+		</c:otherwise>
+	</c:choose>
+	<br>
+	
 	<ul id="menuList">
 		<li class="home">Home</li>
 		<c:forEach var="menu" items="${menuList}">		
@@ -112,15 +144,17 @@ function outputBoard(res) {
 		</c:forEach>
 	</ul>
 	<br>
-		<form id="search" method="GET">
-			<select id="searchItem">
-				<option value="title"  ${searchItem=='title' ? 'selected' : ''}>Title</option>
-				<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
-			</select>
-			<input type="text" id="searchWord" value="${searchWord}">
-			<input type="button" id="btn_search" value="Search">
-		</form>
+	
+	<form id="search" method="GET">
+		<select id="searchItem">
+			<option value="title"  ${searchItem=='title' ? 'selected' : ''}>Title</option>
+			<option value="text"   ${searchItem=='text'  ? 'selected' : ''}>Text</option>
+		</select>
+		<input type="text" id="searchWord" value="${searchWord}">
+		<input type="button" id="btn_search" value="Search">
+	</form>
 	<br>
+	
 	<div id="seeMordDiv" style="display:none;"><a id="seeMore">See more</a></div>
 	<div id="recentBoardDiv"></div>
 </body>
