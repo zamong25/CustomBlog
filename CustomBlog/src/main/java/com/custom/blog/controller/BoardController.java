@@ -35,14 +35,14 @@ public class BoardController {
 	private final int pagePerGroup = 3;
 		
 	
-	@RequestMapping(value="/createBoard", method=RequestMethod.GET)
+	@RequestMapping(value="/writeBoard", method=RequestMethod.GET)
 	public String createBoardForm(Model model) {
 		List<Menu> menus = menuService.selectAllMenu();
 		model.addAttribute("menus", menus);
 		return "board/writeBoard";
 	}
 	
-	@RequestMapping(value="/createBoard", method=RequestMethod.POST)
+	@RequestMapping(value="/writeBoard", method=RequestMethod.POST)
 	@ResponseBody
 	public String createBoardForm(Board board) {
 		return boardService.createBoard(board);

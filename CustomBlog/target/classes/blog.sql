@@ -35,19 +35,20 @@ CREATE SEQUENCE board_seq;
 -- member
 CREATE TABLE member
 (
-	userid   varchar2(50) primary key
-	, userpwd  varchar2(50) not null
-	, username varchar2(50) not null
+	userid   	varchar2(50) primary key
+	, userpw  	varchar2(50) not null
+	, username 	varchar2(50) not null
 );
 
 -- reply
 CREATE TABLE reply
 (
-	replynum  number primary key
-	, boardnum  number not null references board(boardnum), -- 참조하는 본문글번호
-	, userid    varchar2(50)   not null,	-- 댓글 작성자 아이디
-	, replytext varchar2(1000) not null,	-- 댓글 내용
-	 ,regdate   date default sysdate		-- 댓글 작성일
+	replynum  	number 			primary key
+	, boardnum  number 			not null references board(boardnum)
+	, userid    varchar2(50)	not null
+	, userpw    varchar2(50)	not null
+	, replytext varchar2(1000)	not null
+	, regdate   date 			default sysdate
 );
 
 CREATE SEQUENCE reply_seq;

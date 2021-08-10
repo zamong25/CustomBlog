@@ -6,10 +6,13 @@
 	<typeAliases>
 		<typeAlias type="com.custom.blog.vo.Menu" alias="Menu" />
 		<typeAlias type="com.custom.blog.vo.Board" alias="Board" />
-		
+		<typeAlias type="com.custom.blog.vo.Reply" alias="Reply" />
+		<typeAlias type="com.custom.blog.vo.Member" alias="Member" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/menuMapper.xml" />
 		<mapper resource="mapper/boardMapper.xml" />
+		<mapper resource="mapper/replyMapper.xml" />
+		<mapper resource="mapper/memberMapper.xml" />
 	</mappers>
 </configuration>
