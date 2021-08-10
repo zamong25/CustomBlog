@@ -20,8 +20,6 @@
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
-
-
 let page = 1;
 
 $(function() {
@@ -80,8 +78,6 @@ function outputBoard(res) {
 
 	let boardResult = "";
 	
-	let menu = $("#menuList li.eachMenu");
-
 	if (res.length == 0) {
 		$("#recentBoardDiv").html("<b>There is no board</b>");
 	} else {
@@ -96,7 +92,11 @@ function outputBoard(res) {
 		});
 		
 		$("#recentBoardDiv").html(boardResult);
-		$("#seeMore").attr('href', 'listBoard?menu=' + res[0].menu_name);
+		$("#seeMore").attr('href', '/listBoard?menu=' + res[0].menu_name);
+		
+		/* $("#seeMore").on('click', function() {
+			$(location).attr('href', '/listBoard?menu=' + res[0].menu_name);
+		}); */
 		
 	}
 }

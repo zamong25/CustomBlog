@@ -3,6 +3,7 @@ package com.custom.blog.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,12 +11,12 @@ import org.springframework.stereotype.Repository;
 import com.custom.blog.vo.Board;
 
 @Repository
-public class BoardDAO implements BoardMapper {
+public class BoardDAO {
 	
 	@Autowired
 	private SqlSession session;
 
-	@Override
+	
 	public int insertBoard(Board board) {
 		
 		int result = 0;
@@ -30,7 +31,7 @@ public class BoardDAO implements BoardMapper {
 		return result;
 	}
 
-	@Override
+	
 	public List<Board> selectRecentBoard(HashMap<String, String> search) {
 		
 		List<Board> list = null;
@@ -45,7 +46,7 @@ public class BoardDAO implements BoardMapper {
 		return list;
 	}
 
-	@Override
+	
 	public Board selectOne(int boardnum) {
 	
 		Board board = null;
@@ -60,7 +61,7 @@ public class BoardDAO implements BoardMapper {
 		return board;
 	}
 
-	@Override
+
 	public int updateBoard(Board board) {
 		
 		int result = 0;
@@ -75,7 +76,7 @@ public class BoardDAO implements BoardMapper {
 		return result;
 	}
 
-	@Override
+	
 	public int deleteBoard(int boardNum) {
 		
 		int result = 0;
@@ -91,15 +92,21 @@ public class BoardDAO implements BoardMapper {
 		
 	}
 
-	@Override
-	public List<Board> selectBoardByMenu(HashMap<String, String> search) {
+	
+	public List<Board> selectBoardByMenu(HashMap<String, String> search, int startRecord,int countPerPage) {
 
 		
 		List<Board> list = null;
+		RowBounds rb = null;
 		
 		try {
 			BoardMapper mapper = session.getMapper(BoardMapper.class);
-			list = mapper.selectBoardByMenu(search);
+			
+			if (startRecord != 0 || countPerPage != 0) {
+				rb = new RowBounds(startRecord, countPerPage);
+			}
+			
+			list = mapper.selectBoardByMenu(search, rb);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,8 +114,9 @@ public class BoardDAO implements BoardMapper {
 		return list;
 	}
 
-	@Override
+	
 	public int selectTotalCount(HashMap<String, String> paramMap) {
+		
 		int totalCount = 0;
 		try {
 			BoardMapper mapper = session.getMapper(BoardMapper.class);

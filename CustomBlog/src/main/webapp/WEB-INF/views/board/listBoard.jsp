@@ -8,23 +8,42 @@
 <meta charset="UTF-8">
 <title>Boards</title>
 <style>
-#boardBox {
-	border: 1px;
-	color: gray;
+.boardBox {
+	border: 1px solid gray;
 	border-radius: 0.4em;
+	padding : 5px;
+	width : 200px;
 }
 
 input[type=submit] {
 	border : none;
 }
-</style>
 
+#menuTitle {
+	font-weight : bolder;
+	font-size : 1.5em;
+}
+
+#homeImage {
+	width : 25px;
+}
+</style>
+<script type="text/javascript">
+
+$(function() {
+	
+	let page = $("$page").val();
+	
+	
+});
+</script>
 </head>
 <body>
 
 	<div>
-		<h3>${menu}</h3>
-		
+		<span id="menuTitle">${menu}</span>
+		<br>
+		<p><a href="${pageContext.request.contextPath}/"><img id="homeImage" src="resources/images/home.png"></a></p>
 		<form id="search" action="listBoard" method="GET">
 			<input type="hidden" name="menu" value="${menu}">
 			<select name="searchItem">
@@ -34,21 +53,24 @@ input[type=submit] {
 			<input type="text" name="searchWord" value="${searchWord}">
 			<input type="submit" id="btn" value="Search">
 		</form>
+		<br>
 	</div>
-	
-	<br>
-	
-	<div id="boardBox">
-		<c:forEach var="board" items="${list}">
+
+	<c:forEach var="board" items="${list}" varStatus="status">
+		<div class="boardBox">
 			<a href="/readBoard?boardnum=${board.boardnum}">
 				${board.title}
 			</a>
-			<div>${board.menu_name} | ${board.regdate}</div>
-			<div>${board.text}</div>
-		</c:forEach>
-	</div>
+			<br>
+			${board.menu_name} | ${board.regdate}
+			<br>
+			${board.text}
+		</div>
+		<br>
+	</c:forEach>
 	
 	<div class="navigator">
+		<input type="hidden" name="currentPage" id="page">
 		<a href="listBoard?menu=${menu}&currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
 		◁◁
 		</a>

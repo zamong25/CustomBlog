@@ -23,7 +23,8 @@ public class PageNavigator {
 		this.totalRecordsCount = totalRecordsCount;
 		
 		//전체 페이지 수
-		totalPageCount = (totalRecordsCount + countPerPage - 1) / countPerPage;
+		totalPageCount = (totalRecordsCount % countPerPage > 0) 
+                ? totalRecordsCount / countPerPage + 1 : totalRecordsCount / countPerPage;
 
 		//전달된 현재 페이지가 1보다 작으면 현재페이지를 1페이지로 지정
 		if (currentPage < 1)	currentPage = 1;
