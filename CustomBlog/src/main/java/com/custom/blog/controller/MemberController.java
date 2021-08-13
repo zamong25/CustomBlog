@@ -29,5 +29,4 @@ public class MemberController {
 	public String logout() {
 		return service.logout();
 	}
-
 }

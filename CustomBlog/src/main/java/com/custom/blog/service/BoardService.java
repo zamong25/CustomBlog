@@ -60,6 +60,7 @@ public class BoardService {
 	}
 	
 	
+	// ajax
 	public Board selectOne(int boardnum) {
 		
 		Board board = dao.selectOne(boardnum);

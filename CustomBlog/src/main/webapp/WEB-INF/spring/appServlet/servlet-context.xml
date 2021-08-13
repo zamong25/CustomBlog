@@ -23,6 +23,17 @@
 	
 	<context:component-scan base-package="com.custom.blog" />
 	
-	
+	<!-- LoginInterceptor클래스를 Bean으로 등록 -->
+	<beans:bean id="loginInterceptor" class="com.custom.blog.util.LoginInterceptor" />
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/writeBoard" />
+			<mapping path="/updateBoard" />
+			<mapping path="/deleteBoard" />
+			<mapping path="/menu/create" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
