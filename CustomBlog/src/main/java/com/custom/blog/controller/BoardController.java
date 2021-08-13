@@ -31,7 +31,7 @@ public class BoardController {
 	private MenuService menuService;
 	
 	// pagination
-	private final int countPerPage = 3;
+	private final int countPerPage = 6;
 	private final int pagePerGroup = 3;
 		
 	
