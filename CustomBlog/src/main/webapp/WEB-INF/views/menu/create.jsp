@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link href="/resources/css/homeCSS.css" rel="stylesheet" type="text/css"></link>
 <meta charset="UTF-8">
 <script type="text/javascript">
 
@@ -23,16 +23,14 @@ function formCheck(){
 </head>
 <body>
 
-	<h3>Create new menu</h3>
-	<form action="/menu/create" method="POST" onsubmit="return formCheck();">
-		
-		<label> Name </label>
-		<input type="text" id="menu_name" name="menu_name">
-		<br>
-		
-		<input type="submit" id="button" value="Create">
-		
-	</form>
-	
+	<div class="wrapper">
+		<h3>Create new menu</h3>
+		<form action="/menu/create" method="POST" onsubmit="return formCheck();">
+			<label> Name </label>
+			<input type="text" id="menu_name" name="menu_name">
+			<br>
+			<input type="submit" id="button" value="Create">
+		</form>
+	</div>
 </body>
 </html>
