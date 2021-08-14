@@ -4,12 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="resources/css/readBoard.css" rel="stylesheet" type="text/css"></link>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
-<style>
-#homeImage {
-	width : 25px;
-}
-</style>
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
@@ -113,12 +110,16 @@ function outputReply(res) {
 			let random = Math.floor(Math.random() * 5 + 1); // for random profile image
 			
 			result += '<div class="replyBox">'
-			result += 	'<img src="resources/images/profile' + random + '.png" alt="" width="20" height="20">'
-			result += 		item.userid 	+ '<br>'
-			result += 		item.replytext 	+ '<br>'
-			result +=  		item.regdate 	+ '<br>'
-			result += '		<input type="button" class="delbtn"    data-num="'+ item.replynum +'"  value="Delete">'
-			result += '		<input type="button" class="updatebtn" data-num="'+ item.replynum +'"  value="Modify">'
+			result += '		<div class="user">'
+			result += '			<img src="resources/images/profile' + random + '.png" alt="" width="20" height="20">'
+			result += '				&nbsp;' + item.userid
+			result += '		</div>'
+			result += '		<div class="regdate">' + item.regdate 	+ '</div>'
+			result += '		<div class="replytext">' + item.replytext + '</div>'
+			result += '		<div class="buttons">'
+			result += '			<input type="button" class="delbtn"    data-num="'+ item.replynum +'"  value="Delete">'
+			result += '			<input type="button" class="updatebtn" data-num="'+ item.replynum +'"  value="Modify">'
+			result += '		</div>'
 			result += '</div>'
 		});
 
@@ -133,15 +134,38 @@ function outputReply(res) {
 // delbtn
 function deleteReply() {
 	
-	let replynum = $(this).attr('data-num');
+	let userpw = prompt("Please enter password"); // check whether that user wrote reply
+	
+	replynum = $(this).attr('data-num');
 
+	
 	$.ajax({
-		url : 'deleteReply'
+		url : 'selectOneReply'
 		, method : 'GET'
 		, data : { "replynum" : replynum }
 		, success : function(res) {
-			alert(res);
-			initReply();
+			
+			// check reply
+			if (res.userpw == userpw) {
+				
+				$.ajax({
+					url : 'deleteReply'
+					, method : 'GET'
+					, data : { "replynum" : replynum }
+					, success : function(res) {
+						alert(res);
+						
+						$("#replyTarget").empty();
+						
+						initReply();
+					}
+				});
+				
+			}
+			else {
+				alert("The password is wrong");
+				return;
+			}
 		}
 	});
 }
@@ -210,56 +234,45 @@ function updateReply() {
 </script>
 </head>
 <body>
-	<p><a href="${pageContext.request.contextPath}/"><img id="homeImage" src="resources/images/home.png"></a></p>
-	<span id="menu">${board.menu_name}</span>
-	<input type="hidden" id="boardnum" value="${board.boardnum}">
-	<table border="1">
-			<tr>
-				<th>Title</th>
-				<td>
-					${board.title}
-				</td>
-			</tr>
-			<tr>
-				<th>Date</th>
-				<td>
-					${board.regdate}
-				</td>
-			</tr>
-			<tr>
-				<th>Text</th>
-				<td>
-					${board.text}
-				</td>
-			</tr>
-			<tr>
-				<th>File</th>
-				<td>
-					<a href="download?boardnum=${board.boardnum}">${board.originalfile}</a>
-				</td>
-			</tr>
-			
+<div class="frame">
+	<div class="content">
+		<input type="hidden" id="boardnum" value="${board.boardnum}">
+		<div id="menu">${board.menu_name}</div>
+		<div class="title">${board.title}</div>
+		<div class="option">
+			<div class="profile">
+				<img src="resources/images/headerprofile.jpeg">
+			</div>
+			<div class="name">YUHA</div>
+			<div class="date">${board.regdate}</div>
 			<c:if test="${not empty sessionScope.loginId}">
-			<tr>
-				<th class="btn" colspan="2">
+				<div class="buttons">
 					<input type="button" id="btn_updateBoard" value="Update">
 					<input type="button" id="btn_deleteBoard" value="Delete">
-				</th>
-			</tr>
+				</div>
 			</c:if>
-	</table>
-		
-	<div class="wrapper">
-		<h2> Reply </h2>
-		<div>
-			<label>ID : <input type="text" id="userid" name="userid"></label>
-			<label>Password : <input type="text" id="userpw" name="userpw"></label>
-			<label>Content : <input type="text" id="replytext" name="replytext"></label>
-			<input type="button" id="btn_insertReply" value="Save">
-			<input type="button" id="btn_updateReply" value="Modify">
+			<div class="home"><a href="${pageContext.request.contextPath}/"><img id="homeImage" src="resources/images/home.png" width="20"></a></div>
+		</div>
+		<div class="line"><img src="resources/images/line.png" width="100%" height="1.5"></div>
+		<div class="text"><pre>${board.text}</pre></div>
+		<c:if test="${board.originalfile != null}">
+			<div class="file"><label style="font-weight: bold; color: gray;">File : </label><a href="download?boardnum=${board.boardnum}">${board.originalfile}</a></div>
+		</c:if>
+	</div>
+	<div class="reply">
+		<div class="replyTitle">REPLY</div>
+		<div class="writeReply">
+			<div class="id">ID : <br><input type="text" id="userid" name="userid"></div>
+			<div class="password">PASSWORD : <input type="text" id="userpw" name="userpw"></div>
+			<div class="contents">TEXT : <input type="text" id="replytext" name="replytext"></div>
+			<div class="buttons">
+				<input type="button" id="btn_insertReply" value="Save">
+				<input type="button" id="btn_updateReply" value="Modify" style="display: none;">
+			</div>
 		</div>
 		<br>
 		<div id="replyTarget"></div>
 	</div>
+</div>
 </body>
 </html>

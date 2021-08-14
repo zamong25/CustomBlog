@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/homeCSS.css" rel="stylesheet" type="text/css"></link>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&display=swap" rel="stylesheet"></link>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <title> Home </title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
@@ -106,7 +106,7 @@ function outputBoard(res) {
 				boardResult += '		<img src="resources/images/board/photo' + count + '.jpeg">'
 				boardResult += '		<div class="title">' + item.title + '</div>'
 				boardResult += '		<div class="option">' + item.menu_name + ' | ' + item.regdate + '</div>'
-				boardResult += '		<div class="boardText" height="100">' + item.text + '</div>'
+				boardResult += '		<div class="boardText">' + item.text + '</div>'
 				boardResult += '	</a>'
 				boardResult += '</div>'
 			}

@@ -2,7 +2,7 @@
 
 body {
 	background-color: #f3f3f3;
-	font-family: "Quicksand", Light;
+	font-family: "Quicksand", 'Nanum Gothic';
 }
 
 .myprofile {
@@ -52,25 +52,31 @@ body {
 	color: gray;
 }
 
-.title, .option, .boardText {
+.polaroid .title, .option, .boardText {
 	color: black;
 }
 
-.title {
+.polaroid .title {
 	margin: 10px 5px 5px 5px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
-.option {
+.polaroid .option {
 	margin: 5px;
 	font-size: 10px;
 }
 
-.boardText {
+.polaroid .boardText {
+	width: 95%;
+	height: 100%;
+	padding-right: 5px;
 	margin: 5px;
 	font-size: 13px;
+	display: block;
 	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 a {

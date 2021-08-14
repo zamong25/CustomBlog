@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+body {	
+	background-color: #f3f3f3;
+	font-family: "Quicksand", 'Nanum Gothic';
+}
+
+.frame {
+	width: 700px;
+	margin: 30px auto;
+	display: table;
+}
+
+.content {
+	display: table-cell;
+	background-color: white;
+	padding: 0px 33px 30px 33px;
+	width: 430px;
+	border-radius: 10px;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.content #menu {
+	font-size: 13px;
+	color: gray;
+	padding-left: 5px;
+}
+
+.content .title {
+	margin: 10px 5px 10px 0px;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.content .option {
+	display: table;
+	width: 100%;
+	height: 25px;
+	padding-left: 5px;
+}
+
+.option .profile {
+	display: table-cell;
+	width: 25px;
+	height: 100%;
+}
+
+.option .profile img {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	object-fit: cover;
+	vertical-align: middle;
+}
+
+.option .name {
+	display: table-cell;
+	width: 40px;
+	height: 100%;
+	font-size: 13px;
+	color: gray;
+	vertical-align: middle;
+}
+
+.option .date {
+	display: table-cell;
+	display: table-cell;
+	margin: 5px;
+	width: 160px;
+	font-size: 13px;
+	color: #d1d1d1;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.option .buttons, .home {
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.content .text {
+	padding: 10px 5px 10px 5px;
+	font-size: 15px;
+	overflow: hidden;
+}
+
+.content .file {
+	padding: 20px 5px 40px 5px;
+	font-style: italic;
+	color: #667aff;
+	font-size: 13px;
+}
+
+.reply {
+	display: table-cell;
+	padding: 30px 0px 30px 20px;
+}
+
+.replyTitle {
+	font-weight: bold;
+	font-size: 20px;
+	padding: 0px 10px 10px 5px;
+}
+
+.writeReply {
+	font-size: 15px;
+}
+
+.reply .id, .password, .contents {
+	font-size: 12px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+}
+
+.reply #userid, #userpw, #replytext {
+	width: 90%;
+}
+
+.replyBox {
+	background-color: white;
+	border-radius: 7px;
+	margin: 5px 3px 10px 3px;
+	padding : 13px;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.writeReply .buttons {
+	text-align: right;
+}
+
+.replyBox img {
+	vertical-align: middle;
+}
+
+.replyBox .user {
+	font-size: 13px;
+	font-weight: bold;
+	vertical-align: middle;
+	margin-bottom: 5px;
+}
+
+.replyBox .regdate {
+	font-size: 10px;
+	color: #d1d1d1;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.replyBox .replytext {
+	font-size: 13px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+
+.replyBox .buttons {
+	margin-left: 17px;
+}
