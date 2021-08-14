@@ -41,6 +41,10 @@ $(function() {
 	$("#btn_logout").on("click", function() {
 		$(location).attr("href", "/logout");
 	})
+	
+	$("#btn_menuCreate").on("click", function() {
+		$(location).attr("href", "/menu/create");
+	})
 });
 
 
@@ -139,6 +143,7 @@ function outputBoard(res) {
 					<h1>Welcome ${sessionScope.loginName}</h1>
 					<input type="button" id="btn_writeBoard" value="WRITE BOARD">
 					<input type="button" id="btn_logout" value="LOGOUT">
+					<input type="button" id="btn_menuCreate" value="MENU">
 				</c:when>
 				<c:otherwise>
 					<img src="resources/images/login.png" id="btn_login" width="20" height="20">

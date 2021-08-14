@@ -5,6 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+.wrapper {
+  position: absolute;top: 45%;left: 45%;margin:-150px 0 0 -150px
+}
+
+</style>
 <title>New Board</title>
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <script>
@@ -34,6 +40,19 @@ function insert() {
 	let text = $("#text").val();
 	let file = $("#file")[0].files[0];
 	
+	if(title.length == 0) {
+		alert("Please enter data of title");
+		return;
+	}
+	if(menuName.length == 0) {
+		alert("Please enter data of menu");
+		return;
+	}
+	if(text.length == 0) {
+		alert("Please enter data of text");
+		return;
+	}
+		
 	var formData = new FormData();
 	formData.append("title", title);
 	formData.append("menu_name", menuName);
@@ -42,21 +61,22 @@ function insert() {
 	if (file != null) {
 		formData.append("file", file);
 	}
-	
-	$.ajax({
-		url : 'writeBoard'
-		, method : 'POST'
-		, data : formData
-		, processData : false
-		, contentType : false
-		, success : function(res) {
-			alert("Inserted successfully");
-			location.href = "/";
-		}
-		, error : function(err) {
-			console.log(err);
-		}
-	});
+	if(title.lenth != 0 && menuname.length != 0 && text.length != 0){
+		$.ajax({
+			url : 'writeBoard'
+			, method : 'POST'
+			, data : formData
+			, processData : false
+			, contentType : false
+			, success : function(res) {
+				alert("Inserted successfully");
+				location.href = "/";
+			}
+			, error : function(err) {
+				console.log(err);
+			}
+		});
+	}
 }
 
 function update() {
@@ -101,7 +121,7 @@ function update() {
 	<form action="createBoard" method="POST" enctype="multipart/form-data">
 		<%-- <input type="hidden" name="userid" value="${sessionScope.loginId}"> --%>
 		<input type="hidden" id="boardnum" value="${board.boardnum}">
-		<table border="1">
+		<table>
 			<tr>
 				<th>Title</th>
 				<td>

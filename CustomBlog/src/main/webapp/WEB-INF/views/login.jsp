@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title> Login </title>
+<style type="text/css">
+.wrap {
+  position: absolute;top: 50%;left: 50%;margin:-150px 0 0 -150px
+}
+</style>
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
@@ -36,7 +41,7 @@ $(function() {
 </script>
 </head>
 <body>
-
+ <div class="wrap">
 	<form action="login" method="POST">
 		<label>ID <input type="text" id="userid" name="userid"></label>
 		<br>
@@ -44,6 +49,6 @@ $(function() {
 		<br>
 		<input type="submit" id="btn_login" value="LOGIN">
 	</form>
-
+</div>
 </body>
 </html>
