@@ -140,18 +140,19 @@ function outputBoard(res) {
 			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 			<c:choose>
 				<c:when test="${not empty sessionScope.loginId}">
-					<h1>Welcome ${sessionScope.loginName}</h1>
-					<input type="button" id="btn_writeBoard" value="WRITE BOARD">
+					<h3>WELCOME ${sessionScope.loginName}</h3>
+					<input type="button" id="btn_menuCreate" value="NEW MENU">
+					<input type="button" id="btn_writeBoard" value="NEW BOARD">
 					<input type="button" id="btn_logout" value="LOGOUT">
-					<input type="button" id="btn_menuCreate" value="MENU">
+					<div><img src="resources/images/search.png" id="icon_search" width="20" height="20" style="padding-top: 5px;"></div>
 				</c:when>
 				<c:otherwise>
-					<img src="resources/images/login.png" id="btn_login" width="20" height="20">
+					<div style="text-align: right;">
+						<img src="resources/images/login.png" id="btn_login" width="20" height="20" style="vertical-align: middle;">
+						<img src="resources/images/search.png" id="icon_search" width="20" height="20" style="vertical-align: middle;">
+					</div>
 				</c:otherwise>
 			</c:choose>
-			
-			<img src="resources/images/search.png" id="icon_search" width="20" height="20">
-			
 			<div id="searchDIV" style="display:none;">
 				<form id="search" method="GET">
 					<select id="searchItem">
@@ -191,7 +192,7 @@ function outputBoard(res) {
 		</div>
 	</div>
 	<div class="footer">
-		Copyright 2021. uzzing all rights reserved.
+		Copyright 2021. uzzing All rights reserved.
 	</div>
 </div>
 </body>
