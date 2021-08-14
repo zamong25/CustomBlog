@@ -71,7 +71,7 @@ $(function() {
 			
 			<c:forEach var="page" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
 				<c:if test="${navi.currentPage == page}">
-					<span style="color:#667aff;font-weight:bolder;font-size:1.3em">${page}</span> &nbsp;
+					<span style="color:#9966ff;font-weight:bolder;font-size:1.3em">${page}</span> &nbsp;
 				</c:if>
 				
 				<c:if test="${navi.currentPage != page}">

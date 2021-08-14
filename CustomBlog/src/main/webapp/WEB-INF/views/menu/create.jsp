@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/resources/css/homeCSS.css" rel="stylesheet" type="text/css"></link>
+<link href="/resources/css/createMenu.css" rel="stylesheet" type="text/css"></link>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
 <script type="text/javascript">
-
 function formCheck(){
 	var menu_name = document.getElementById("menu_name").value;
 	
@@ -16,20 +16,16 @@ function formCheck(){
 	}
 	
 	return true;
-	
 }
 </script>
-
 </head>
 <body>
-
 	<div class="wrapper">
-		<h3>Create new menu</h3>
+		<h3> [ CREATE NEW MENU ] </h3>
 		<form action="/menu/create" method="POST" onsubmit="return formCheck();">
-			<label> Name </label>
+			<label> NAME </label>
 			<input type="text" id="menu_name" name="menu_name">
-			<br>
-			<input type="submit" id="button" value="Create">
+			<div class="btn"><input type="submit" id="button" value="Create"></div>
 		</form>
 	</div>
 </body>

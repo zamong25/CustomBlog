@@ -4,13 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="resources/css/writeBoard.css" rel="stylesheet" type="text/css"></link>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
-<style type="text/css">
-.wrapper {
-  position: absolute;top: 45%;left: 45%;margin:-150px 0 0 -150px
-}
-
-</style>
 <title>New Board</title>
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <script>
@@ -116,7 +112,7 @@ function update() {
 </script>
 </head>
 <body>
-	<div class="wrapper">
+<div class="wrapper">
 	<h2>[ Write board ]</h2>
 	<form action="createBoard" method="POST" enctype="multipart/form-data">
 		<%-- <input type="hidden" name="userid" value="${sessionScope.loginId}"> --%>

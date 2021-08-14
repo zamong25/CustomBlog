@@ -3,11 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
 <title> Login </title>
 <style type="text/css">
+body {
+	background-color: #f3f3f3;
+	font-family: "Quicksand", 'Nanum Gothic';
+}
+
 .wrap {
-  position: absolute;top: 50%;left: 50%;margin:-150px 0 0 -150px
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -100px;
 }
 </style>
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
@@ -43,11 +52,10 @@ $(function() {
 <body>
  <div class="wrap">
 	<form action="login" method="POST">
-		<label>ID <input type="text" id="userid" name="userid"></label>
+		<label>ID &nbsp; &nbsp; &nbsp;<input type="text" id="userid" name="userid"></label>
 		<br>
-		<label>PW <input type="password" id="userpw" name="userpw"></label>
-		<br>
-		<input type="submit" id="btn_login" value="LOGIN">
+		<label>PW &nbsp; &nbsp;<input type="password" id="userpw" name="userpw"></label>
+		<div style="padding-top: 10px; padding-left: 70px;"><input type="submit" id="btn_login" value="LOGIN"></div>
 	</form>
 </div>
 </body>
