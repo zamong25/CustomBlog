@@ -13,20 +13,22 @@ body {
 }
 
 .frame {
-	width: 700px;
+	width: 750px;
 	margin: 30px auto;
 }
 
 .header {
+	width: 715px;
 	padding: 10px 10px;
   	text-align: center;
   	background: white;
-  	margin-bottom: 20px;
+  	margin-bottom: 10px;
   	box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
   	border-radius: 10px;
 }
 
 .container {
+	width: 750px;
 	overflow: visible;
 	display: table;
 }
@@ -40,8 +42,9 @@ body {
 
 .content {
 	display: table-cell;
-	padding-left: 40px;
-	width: 500px;
+	padding-left: 20px;
+	width: 650px;
+	text-align: center;
 }
 
 .footer {
@@ -65,18 +68,23 @@ body {
 .polaroid .option {
 	margin: 5px;
 	font-size: 10px;
+	color: gray;
 }
 
 .polaroid .boardText {
-	width: 95%;
-	height: 100%;
+	display: -webkit-box;
+	word-wrap: break-word; 
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    line-height: 18px;
+    height: 54px;
+	width: 230px;
 	padding-right: 5px;
 	margin: 5px;
 	font-size: 13px;
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	position: absolute;
 }
 
 a {
@@ -164,14 +172,15 @@ a {
 	display: inline-block;
 	background: white;
 	border: 1px solid #dedede;
-	margin: 30px 30px 0px 0px;
-	width: 216px;
-	height: 214px;
+	margin: 30px 25px 0px 0px;
+	width: 260px;
+	height: 255px;
 	box-shadow: 0px 0px 1px 0 rgba(0, 0, 0, 0.2);
 	position: relative;
 	padding: 10px 10px;
 	box-sizing: border-box;
 	cursor: pointer;
+	text-align: center;
 }
 
 .polaroid img {
@@ -203,6 +212,5 @@ a {
 	color: black;
 	font-size: 15px;
 	font-weight: bold;
-	padding-left: 10px;
 	padding-top: 10px;
 }

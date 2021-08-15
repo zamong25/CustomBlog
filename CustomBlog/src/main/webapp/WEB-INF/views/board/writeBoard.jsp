@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="resources/css/writeBoard.css" rel="stylesheet" type="text/css"></link>
+<link href="resources/css/writeBoardCSS.css" rel="stylesheet" type="text/css"></link>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
 <title>New Board</title>
@@ -36,15 +36,17 @@ function insert() {
 	let text = $("#text").val();
 	let file = $("#file")[0].files[0];
 	
-	if(title.length == 0) {
+	if (title.trim().length == 0) {
 		alert("Please enter data of title");
 		return;
 	}
-	if(menuName.length == 0) {
+	
+	if (menuName.length == 0) {
 		alert("Please enter data of menu");
 		return;
 	}
-	if(text.length == 0) {
+	
+	if (text.trim().length == 0) {
 		alert("Please enter data of text");
 		return;
 	}
@@ -57,7 +59,8 @@ function insert() {
 	if (file != null) {
 		formData.append("file", file);
 	}
-	if(title.lenth != 0 && menuname.length != 0 && text.length != 0){
+	
+	if (title.trim().length != 0 && menuName.length != 0 && text.trim().length != 0) {
 		$.ajax({
 			url : 'writeBoard'
 			, method : 'POST'
@@ -115,13 +118,12 @@ function update() {
 <div class="wrapper">
 	<h2>[ Write board ]</h2>
 	<form action="createBoard" method="POST" enctype="multipart/form-data">
-		<%-- <input type="hidden" name="userid" value="${sessionScope.loginId}"> --%>
 		<input type="hidden" id="boardnum" value="${board.boardnum}">
 		<table>
 			<tr>
 				<th>Title</th>
 				<td>
-					<input type="text" name="title" id="title" value="${board.title}">
+					<input type="text" name="title" id="title" value="${board.title}" style="width: 550px;">
 				</td>
 			</tr>
 			<tr>
@@ -138,7 +140,7 @@ function update() {
 			<tr>
 				<th>Text</th>
 				<td>
-					<textarea rows="10" cols="50" name="text" id="text">${board.text}</textarea>
+					<textarea rows="20" cols="80" name="text" id="text">${board.text}</textarea>
 				</td>
 			</tr>
 			<tr>

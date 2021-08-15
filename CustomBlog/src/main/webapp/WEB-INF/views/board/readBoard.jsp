@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="resources/css/readBoard.css" rel="stylesheet" type="text/css"></link>
+<link href="resources/css/readBoardCSS.css" rel="stylesheet" type="text/css"></link>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600&family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
 <meta charset="UTF-8">
 <script type="text/javascript" src="resources/js/jquery-3.6.0.js"></script>
@@ -29,7 +29,7 @@ function updateBoard() {
 
 function deleteBoard() {
 	
-	let boardnum = $("#boardnum").val();
+	let boardnum = $(".content #boardnum").val();
 	
 	let check = confirm("Do you want to delete?");
 	
@@ -80,7 +80,7 @@ function insertReply() {
 		, error : function(err) {
 			console.log(err);
 		}
-	})
+	});
 }
 
 function initReply() {
@@ -264,7 +264,7 @@ function updateReply() {
 		<div class="writeReply">
 			<div class="id">ID : <br><input type="text" id="userid" name="userid"></div>
 			<div class="password">PASSWORD : <input type="text" id="userpw" name="userpw"></div>
-			<div class="contents">TEXT : <input type="text" id="replytext" name="replytext"></div>
+			<div class="contents">TEXT : <textarea id="replytext" rows="5" name="replytext"></textarea>
 			<div class="buttons">
 				<input type="button" id="btn_insertReply" value="Save">
 				<input type="button" id="btn_updateReply" value="Modify" style="display: none;">

@@ -79,7 +79,7 @@ public class BoardController {
 	@RequestMapping(value="/updateBoard", method=RequestMethod.POST)
 	@ResponseBody
 	public String updateBoard(Board board) {
-		System.out.print(board);
+
 		return boardService.updateBoard(board);
 	}
 	

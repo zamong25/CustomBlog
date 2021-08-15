@@ -53,7 +53,7 @@ $(function() {
 						<img src="resources/images/board/photo${count}.jpeg">
 						<div class="title">${board.title}</div>
 						<div class="option">${board.menu_name} | ${board.regdate}</div>
-						<div class="boardText" height="100">${board.text}</div>
+						<div class="boardText">${board.text}</div>
 					</a>
 				</div>
 		</c:forEach>
