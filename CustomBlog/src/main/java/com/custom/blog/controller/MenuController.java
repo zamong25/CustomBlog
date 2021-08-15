@@ -1,10 +1,7 @@
 package com.custom.blog.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,5 +25,4 @@ public class MenuController {
 	public String createMenuForm(Menu menu) {
 		return service.createMenu(menu); // send user to specific path
 	}
-
 }

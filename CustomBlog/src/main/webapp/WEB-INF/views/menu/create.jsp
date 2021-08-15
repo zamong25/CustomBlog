@@ -10,7 +10,7 @@
 function formCheck(){
 	var menu_name = document.getElementById("menu_name").value;
 	
-	if(menu_name == ""){
+	if (menu_name == "") {
 		alert("Please write menu name");
 		return false;
 	}

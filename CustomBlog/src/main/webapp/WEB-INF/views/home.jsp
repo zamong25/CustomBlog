@@ -97,7 +97,10 @@ function outputBoard(res) {
 	let boardResult = "";
 	
 	if (res.length == 0) {
-		$("#recentBoardDiv").html("<b>There is no board</b>");
+		boardResult += '<div style="font-weight: bold; padding-top: 10px;">' + menuName + '</div>'
+		boardResult += '<div> There is no board </div>'
+		
+		$("#recentBoardDiv").html(boardResult);
 	} else {
 		
 		let count = 1; // for img
